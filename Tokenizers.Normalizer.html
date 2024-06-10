@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.30.4">
+    <meta name="project" content="Tokenizers v0.5.0">
+
+    <title>Tokenizers.Normalizer — Tokenizers v0.5.0</title>
+    <link rel="stylesheet" href="dist/html-elixir-HFL3S4U6.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-NBND3S2D.js"></script>
+    <script src="dist/sidebar_items-70B02A1A.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/html-B3DGGEY7.js"></script>
+
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
+Tokenizers
+      </a>
+      <div class="sidebar-projectVersion" translate="no">
+        v0.5.0
+      </div>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list"></ul>
+</section>
+
+<section class="content">
+  <output role="status" id="toast"></output>
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="icon-action display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L1" title="View Source" class="icon-action" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span translate="no">Tokenizers.Normalizer</span> 
+  <small class="app-vsn" translate="no">(Tokenizers v0.5.0)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p>Normalizers and normalization functions.</p><p>A normalizer is in charge of pre-processing the input string in
+order to normalize it as relevant for the given use case.</p><p>Some common examples of normalization are the Unicode normalization
+algorithms (NFD, NFKD, NFC &amp; NFKC) or lowercasing. The specificity
+of tokenizers is that we keep track of the alignment while
+normalizing. This is essential to allow mapping from the generated
+tokens back to the input text.</p>
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        Summary
+      </a>
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:t/0" translate="no">t()</a>
+
+      </div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bert_normalizer/1" translate="no">bert_normalizer(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Takes care of normalizing raw text before giving it to a Bert model.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#lowercase/0" translate="no">lowercase()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Replaces all uppercase to lowercase</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#nfc/0" translate="no">nfc()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a NFC Unicode normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#nfd/0" translate="no">nfd()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a NFD Unicode normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#nfkc/0" translate="no">nfkc()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a NFKC Unicode normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#nfkd/0" translate="no">nfkd()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a NFKD Unicode normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#nmt/0" translate="no">nmt()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a Nmt normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#normalize/2" translate="no">normalize(normalizer, input)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Normalizes the given text input.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#precompiled/1" translate="no">precompiled(data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Precompiled normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#prepend/1" translate="no">prepend(prepend)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a Prepend normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#replace/2" translate="no">replace(search, content)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Replaces a custom <code class="inline">search</code> string with the given <code class="inline">content</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#replace_regex/2" translate="no">replace_regex(pattern, content)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Replaces occurrences of a custom regexp <code class="inline">pattern</code> with the given <code class="inline">content</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sequence/1" translate="no">sequence(normalizers)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Composes multiple normalizers that will run in the provided order.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#strip/1" translate="no">strip(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a Strip normalizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#strip_accents/0" translate="no">strip_accents()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a Strip Accent normalizer.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+Types
+      </a>
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">t()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L17" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.Normalizer{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+Functions
+      </a>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="bert_normalizer/1">
+
+    <span id="bert_normalizer/0"></span>
+
+  <div class="detail-header">
+    <a href="#bert_normalizer/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">bert_normalizer(opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L48" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> bert_normalizer(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Takes care of normalizing raw text before giving it to a Bert model.</p><p>This includes cleaning the text, handling accents, chinese chars and
+lowercasing.</p><h2 id="bert_normalizer/1-options" class="section-heading">
+  <a href="#bert_normalizer/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">:clean_text</code> - whether to clean the text, by removing any
+control characters and replacing all whitespaces by the classic
+one. Defaults to <code class="inline">true</code></p></li><li><p><code class="inline">:handle_chinese_chars</code> - whether to handle chinese chars by
+putting spaces around them. Default <code class="inline">true</code></p></li><li><p><code class="inline">:strip_accents</code> - whether to strip all accents. If this option
+is not specified, then it will be determined by the value for
+lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowercase</code> - whether to lowercase. Default <code class="inline">true</code></p></li></ul>
+  </section>
+</section>
+<section class="detail" id="lowercase/0">
+
+  <div class="detail-header">
+    <a href="#lowercase/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">lowercase()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L117" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> lowercase() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Replaces all uppercase to lowercase</p>
+  </section>
+</section>
+<section class="detail" id="nfc/0">
+
+  <div class="detail-header">
+    <a href="#nfc/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">nfc()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L68" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> nfc() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a NFC Unicode normalizer.</p>
+  </section>
+</section>
+<section class="detail" id="nfd/0">
+
+  <div class="detail-header">
+    <a href="#nfd/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">nfd()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L56" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> nfd() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a NFD Unicode normalizer.</p>
+  </section>
+</section>
+<section class="detail" id="nfkc/0">
+
+  <div class="detail-header">
+    <a href="#nfkc/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">nfkc()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L74" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> nfkc() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a NFKC Unicode normalizer.</p>
+  </section>
+</section>
+<section class="detail" id="nfkd/0">
+
+  <div class="detail-header">
+    <a href="#nfkd/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">nfkd()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L62" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> nfkd() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a NFKD Unicode normalizer.</p>
+  </section>
+</section>
+<section class="detail" id="nmt/0">
+
+  <div class="detail-header">
+    <a href="#nmt/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">nmt()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L142" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> nmt() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a Nmt normalizer.</p>
+  </section>
+</section>
+<section class="detail" id="normalize/2">
+
+  <div class="detail-header">
+    <a href="#normalize/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">normalize(normalizer, input)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L23" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> normalize(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}</pre>
+
+      </div>
+
+<p>Normalizes the given text input.</p>
+  </section>
+</section>
+<section class="detail" id="precompiled/1">
+
+  <div class="detail-header">
+    <a href="#precompiled/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">precompiled(data)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L150" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> precompiled(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Precompiled normalizer.</p><p>Don’t use manually it is used for compatibility with SentencePiece.</p>
+  </section>
+</section>
+<section class="detail" id="prepend/1">
+
+  <div class="detail-header">
+    <a href="#prepend/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">prepend(prepend)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L96" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> prepend(prepend :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a Prepend normalizer.</p>
+  </section>
+</section>
+<section class="detail" id="replace/2">
+
+  <div class="detail-header">
+    <a href="#replace/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">replace(search, content)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L123" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> replace(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Replaces a custom <code class="inline">search</code> string with the given <code class="inline">content</code>.</p>
+  </section>
+</section>
+<section class="detail" id="replace_regex/2">
+
+  <div class="detail-header">
+    <a href="#replace_regex/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">replace_regex(pattern, content)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L134" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> replace_regex(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Replaces occurrences of a custom regexp <code class="inline">pattern</code> with the given <code class="inline">content</code>.</p><p>The <code class="inline">pattern</code> should be a string representing a regular expression
+according to the <a href="https://github.com/kkos/oniguruma">Oniguruma Regex Engine</a>.</p>
+  </section>
+</section>
+<section class="detail" id="sequence/1">
+
+  <div class="detail-header">
+    <a href="#sequence/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sequence(normalizers)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L111" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> sequence([<a href="#t:t/0">t</a>()]) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Composes multiple normalizers that will run in the provided order.</p>
+  </section>
+</section>
+<section class="detail" id="strip/1">
+
+    <span id="strip/0"></span>
+
+  <div class="detail-header">
+    <a href="#strip/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">strip(opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L90" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> strip(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a Strip normalizer.</p><p>Removes all whitespace characters on the specified sides (left,
+right or both) of the input</p><h2 id="strip/1-options" class="section-heading">
+  <a href="#strip/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">:left</code> - whether to strip left side. Defaults to <code class="inline">true</code></p></li><li><p><code class="inline">:right</code> - whether to strip right side. Defaults to <code class="inline">true</code></p></li></ul>
+  </section>
+</section>
+<section class="detail" id="strip_accents/0">
+
+  <div class="detail-header">
+    <a href="#strip_accents/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">strip_accents()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L105" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> strip_accents() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a Strip Accent normalizer.</p><p>Removes all accent symbols in unicode (to be used with NFD for
+consistency).</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+        <p>
+
+            <span class="line">
+              <a href="https://hex.pm/packages/tokenizers/0.5.0" class="footer-hex-package">Hex Package</a>
+
+              <a href="https://preview.hex.pm/preview/tokenizers/0.5.0">Hex Preview</a>
+
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.5.0/show/lib/tokenizers/normalizer.ex">current file</a>)
+
+            </span>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+              Search HexDocs
+            </button>
+
+              <a href="Tokenizers.epub" title="ePub version">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.30.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>
